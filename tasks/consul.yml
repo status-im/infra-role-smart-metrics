@@ -1,0 +1,9 @@
+---
+- name: Create Consul service definition
+  template:
+    src: 'smart-metrics.json.j2'
+    dest: '/etc/consul/service_smart_metrics.json'
+    owner: 'root'
+    group: 'consul'
+    mode: 0640
+  notify: reload consul

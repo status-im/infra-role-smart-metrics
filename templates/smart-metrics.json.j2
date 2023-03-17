@@ -1,0 +1,23 @@
+{
+  "service": {
+    "name": "{{ smart_metrics_service_name }}",
+    "tags": [
+      "{{ env }}.{{ stage }}",
+      "monitor",
+      "smart"
+    ],
+    "port": {{ smart_metrics_listen_port }},
+    "address": {{ ansible_local.wireguard.address | mandatory | to_json }},
+    "checks": [
+      {
+        "id": "{{ smart_metrics_service_name }}-health",
+        "name": "Hard Drive SMART metrics exporter.",
+        "http": "http://localhost:{{ smart_metrics_listen_port }}/health",
+        "interval": "60s",
+        "success_before_passing": 0,
+        "failures_before_warning": 1,
+        "failures_before_critical": 2
+      }
+    ]
+  }
+}

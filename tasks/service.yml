@@ -5,10 +5,7 @@
     src: 'smart-metrics.service.j2'
     dest: '/lib/systemd/system/{{ smart_metrics_service_name }}.service'
     mode: 0644
-
-- name: Reload systemctl
-  when: smart_metrics_service_config.changed
-  command: 'systemctl daemon-reload'
+  notify: reload systemd
 
 - name: (Re)start service
   when: smart_metrics_service_config.changed
