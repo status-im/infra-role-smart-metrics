@@ -1,0 +1,18 @@
+---
+- name: Create systemd service
+  register: smart_metrics_service_config
+  template:
+    src: 'smart-metrics.service.j2'
+    dest: '/lib/systemd/system/{{ smart_metrics_service_name }}.service'
+    mode: 0644
+
+- name: Reload systemctl
+  when: smart_metrics_service_config.changed
+  command: 'systemctl daemon-reload'
+
+- name: (Re)start service
+  when: smart_metrics_service_config.changed
+  service:
+    name: '{{ smart_metrics_service_name }}.service'
+    state: 'restarted'
+    enabled: true

@@ -1,0 +1,23 @@
+---
+# General
+smart_metrics_service_name: 'smart-metrics'
+smart_metrics_service_path: '/opt/smart-metrics'
+
+# Software
+smart_metrics_version: '0.9.1'
+smart_metrics_tarball_name: 'smartctl_exporter-{{ smart_metrics_version }}.linux-amd64.tar.gz'
+smart_metrics_tarball_url: 'https://github.com/prometheus-community/smartctl_exporter/releases/download/v{{ smart_metrics_version }}/{{ smart_metrics_tarball_name }}'
+smart_metrics_tarball_sha256: '113052ec800bf359b9dd4ac18ce4d605277b2195fbc0c9446902738819f8553b'
+smart_metrics_install_path: '/usr/local/bin/smartctl_exporter'
+
+# Settings
+smart_metrics_log_level: 'info' # debug, info, warn, error
+smart_metrics_log_format: 'json' # json, logfmt
+smart_metrics_refresh_interval: '30s'
+smart_metrics_listen_port: 9633
+smart_metrics_listen_address: 0.0.0.0
+smart_metrics_telemetry_path: '/metrics'
+smart_metrics_smartctl_path: '/usr/sbin/smartctl'
+smart_metrics_smartctl_devices: [] # auto detect
+smart_metrics_smartctl_devices_exclude: ''
+smart_metrics_smartctl_devices_include: ''

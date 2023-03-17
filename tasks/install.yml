@@ -1,0 +1,35 @@
+---
+- name: Install SMART tools
+  apt:
+    name: 'smartmontools'
+
+- name: Check if binary exists
+  stat:
+    path: '{{ smart_metrics_install_path }}'
+  register: smart_exp_binary
+
+- name: Check binary version
+  when: smart_exp_binary.stat.exists
+  register: smart_exp_version
+  command: '{{ smart_metrics_install_path }} --version'
+
+- name: Install binary
+  when: >
+    not smart_exp_binary.stat.exists or
+    "version "+smart_metrics_version not in smart_exp_version.stderr
+  block:
+    - name: Download tarball
+      get_url:
+        url: '{{ smart_metrics_tarball_url }}'
+        dest: '/tmp/{{ smart_metrics_tarball_name }}'
+        checksum: 'sha256:{{ smart_metrics_tarball_sha256 }}'
+        mode: 0755
+
+    # This removes the .gz file by default.
+    - name: Unpack binary from tarball
+      unarchive:
+        src: '/tmp/{{ smart_metrics_tarball_name }}'
+        dest: '/usr/local/bin'
+        remote_src: true
+        exclude: 'LICENSE'
+        extra_opts: ['--strip-components=1']

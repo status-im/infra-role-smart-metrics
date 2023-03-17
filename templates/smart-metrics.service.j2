@@ -1,0 +1,39 @@
+[Unit]
+Description=SMART metrics exporter for Prometheus.
+Documentation=https://github.com/prometheus-community/smartctl_exporter
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+PIDFile=/run/smartctl_exporter.pid
+User=root
+Group=root
+SyslogIdentifier=smartctl_exporter
+Restart=on-failure
+RemainAfterExit=no
+RestartSec=100ms
+StandardOutput=journal
+StandardError=journal
+Nice=19
+IOSchedulingClass=idle
+IOSchedulingPriority=7
+ExecStart={{ smart_metrics_install_path }} \
+    --log.level={{ smart_metrics_log_level }} \
+    --log.format={{ smart_metrics_log_format }} \
+    --smartctl.path={{ smart_metrics_smartctl_path }} \
+    --smartctl.interval={{ smart_metrics_refresh_interval }} \
+{% for device in smart_metrics_smartctl_devices %}
+    --smartctl.device={{ device }} \
+{% endfor %}
+{% if smart_metrics_smartctl_devices_exclude %}
+    --smartctl.device-exclude='{{ smart_metrics_smartctl_devices_exclude }}' \
+{% endif %}
+{% if smart_metrics_smartctl_devices_include %}
+    --smartctl.device-include='{{ smart_metrics_smartctl_devices_include }}' \
+{% endif %}
+    --web.telemetry-path={{ smart_metrics_telemetry_path }} \
+    --web.listen-address={{ smart_metrics_listen_address }}:{{ smart_metrics_listen_port }}
+
+[Install]
+WantedBy=multi-user.target
