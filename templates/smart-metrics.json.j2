@@ -9,6 +9,7 @@
     "port": {{ smart_metrics_listen_port }},
     "address": {{ ansible_local.wireguard.address | mandatory | to_json }},
     "checks": [
+{% if smart_metrics_consul_check_enabled %}
       {
         "id": "{{ smart_metrics_service_name }}-health",
         "name": "Hard Drive SMART metrics exporter.",
@@ -18,6 +19,7 @@
         "failures_before_warning": 1,
         "failures_before_critical": 2
       }
+{% endif %}
     ]
   }
 }

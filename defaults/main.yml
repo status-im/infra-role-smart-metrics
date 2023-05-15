@@ -21,3 +21,6 @@ smart_metrics_smartctl_path: '/usr/sbin/smartctl'
 smart_metrics_smartctl_devices: [] # auto detect
 smart_metrics_smartctl_devices_exclude: ''
 smart_metrics_smartctl_devices_include: ''
+
+# Consul
+smart_metrics_consul_check_enabled: true
