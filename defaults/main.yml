@@ -4,10 +4,10 @@ smart_metrics_service_name: 'smart-metrics'
 smart_metrics_service_path: '/opt/smart-metrics'
 
 # Software
-smart_metrics_version: '0.9.1'
+smart_metrics_version: '0.12.0'
 smart_metrics_tarball_name: 'smartctl_exporter-{{ smart_metrics_version }}.linux-amd64.tar.gz'
 smart_metrics_tarball_url: 'https://github.com/prometheus-community/smartctl_exporter/releases/download/v{{ smart_metrics_version }}/{{ smart_metrics_tarball_name }}'
-smart_metrics_tarball_sha256: '113052ec800bf359b9dd4ac18ce4d605277b2195fbc0c9446902738819f8553b'
+smart_metrics_tarball_sha256: '8438adda3dee17afe4fe7d1dc1383a61fb42beddca08e1a6f3b95125c8a77a1b'
 smart_metrics_install_path: '/usr/local/bin/smartctl_exporter'
 
 # Settings
