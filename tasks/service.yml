@@ -8,7 +8,9 @@
   notify: reload systemd
 
 - name: (Re)start service
-  when: smart_metrics_service_config.changed
+  when: |
+    smart_metrics_service_config.changed or
+    smart_metrics_binary.changed
   service:
     name: '{{ smart_metrics_service_name }}.service'
     state: 'restarted'

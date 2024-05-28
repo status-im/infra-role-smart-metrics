@@ -27,6 +27,7 @@
 
     # This removes the .gz file by default.
     - name: Unpack binary from tarball
+      register: smart_metrics_binary
       unarchive:
         src: '/tmp/{{ smart_metrics_tarball_name }}'
         dest: '/usr/local/bin'
