@@ -1,0 +1,10 @@
+---
+- name: 'Open Firewall Port'
+  include_role: name=infra-role-open-ports
+  vars:
+    open_ports_list:
+      smart-metrics:
+        - comment: 'SMART Metrics'
+          port: '{{ smart_metrics_listen_port }}'
+          ipset: 'metrics.hq'
+          iifname: 'wg0'
