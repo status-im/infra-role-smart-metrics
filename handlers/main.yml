@@ -4,3 +4,6 @@
 
 - name: reload consul
   service: name=consul state=reloaded
+
+- name: reload nftables
+  service: name=nftables state=reloaded
