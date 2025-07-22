@@ -22,5 +22,8 @@ smart_metrics_smartctl_devices: [] # auto detect
 smart_metrics_smartctl_devices_exclude: ''
 smart_metrics_smartctl_devices_include: ''
 
+# Firewall
+smart_metrics_nftables_dir: '{{ bootstrap__firewall_nftables_dir | default("/etc/nft.conf.d") }}'
+
 # Consul
 smart_metrics_consul_check_enabled: true

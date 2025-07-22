@@ -2,6 +2,6 @@
 - name: Open port for VPN in NFTables
   template:
     src:  'smart-metrics.nft.j2'
-    dest: '{{ bootstrap__firewall_nftables_dir }}/services/smart.nft'
+    dest: '{{ smart_metrics_nftables_dir }}/services/smart.nft'
     mode: '0644'
   notify: reload nftables
