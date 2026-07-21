@@ -5,9 +5,16 @@ smart_metrics_service_path: '/opt/smart-metrics'
 
 # Software
 smart_metrics_version: '0.14.0'
-smart_metrics_tarball_name: 'smartctl_exporter-{{ smart_metrics_version }}.linux-amd64.tar.gz'
+smart_metrics_arch_map:
+  x86_64: 'amd64'
+  aarch64: 'arm64'
+smart_metrics_arch: '{{ smart_metrics_arch_map[ansible_architecture] | default(ansible_architecture) }}'
+smart_metrics_tarball_name: 'smartctl_exporter-{{ smart_metrics_version }}.linux-{{ smart_metrics_arch }}.tar.gz'
 smart_metrics_tarball_url: 'https://github.com/prometheus-community/smartctl_exporter/releases/download/v{{ smart_metrics_version }}/{{ smart_metrics_tarball_name }}'
-smart_metrics_tarball_sha256: '875983cd27affc5a682401930e5a8eea3f06c325fe6d6a7228c5547d882685b3'
+smart_metrics_tarball_sha256_map:
+  amd64: '875983cd27affc5a682401930e5a8eea3f06c325fe6d6a7228c5547d882685b3'
+  arm64: '27353b3adca7f54dd486417412041a17260709c724ea63f5138df2612ecf4299'
+smart_metrics_tarball_sha256: '{{ smart_metrics_tarball_sha256_map[smart_metrics_arch] }}'
 smart_metrics_install_path: '/usr/local/bin/smartctl_exporter'
 
 # Settings
